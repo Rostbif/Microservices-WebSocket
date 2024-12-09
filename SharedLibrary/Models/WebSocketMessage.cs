@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ServiceB.Models
+namespace SharedLibrary.Models
 {
-    public class WebSocketMessage2
+    public class WebSocketMessage
     {
         public string? Action { get; set; }
         public string? Status { get; set; }

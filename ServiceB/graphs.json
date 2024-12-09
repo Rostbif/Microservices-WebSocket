@@ -1,0 +1,286 @@
+[
+  {
+    "Id": 2,
+    "Name": "Second Graph",
+    "Nodes": [
+      {
+        "Id": 4,
+        "Label": "fourth"
+      },
+      {
+        "Id": 5,
+        "Label": "fifth"
+      },
+      {
+        "Id": 6,
+        "Label": "sixth"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 4,
+        "TargetNodeId": 5
+      },
+      {
+        "SourceNodeId": 4,
+        "TargetNodeId": 6
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "Name": "Third Graph",
+    "Nodes": [
+      {
+        "Id": 7,
+        "Label": "fourth"
+      },
+      {
+        "Id": 8,
+        "Label": "fifth"
+      },
+      {
+        "Id": 9,
+        "Label": "sixth"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 7,
+        "TargetNodeId": 8
+      },
+      {
+        "SourceNodeId": 7,
+        "TargetNodeId": 9
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "Name": "Fourth Graph",
+    "Nodes": [
+      {
+        "Id": 9,
+        "Label": "string"
+      },
+      {
+        "Id": 10,
+        "Label": "string"
+      },
+      {
+        "Id": 11,
+        "Label": "string"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 9,
+        "TargetNodeId": 10
+      },
+      {
+        "SourceNodeId": 9,
+        "TargetNodeId": 11
+      }
+    ]
+  },
+  {
+    "Id": 5,
+    "Name": "Fourth Graph",
+    "Nodes": [
+      {
+        "Id": 12,
+        "Label": "string"
+      },
+      {
+        "Id": 13,
+        "Label": "string"
+      },
+      {
+        "Id": 14,
+        "Label": "string"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 12,
+        "TargetNodeId": 13
+      },
+      {
+        "SourceNodeId": 12,
+        "TargetNodeId": 14
+      }
+    ]
+  },
+  {
+    "Id": 6,
+    "Name": "Fourth Graph",
+    "Nodes": [
+      {
+        "Id": 12,
+        "Label": "string"
+      },
+      {
+        "Id": 13,
+        "Label": "string"
+      },
+      {
+        "Id": 14,
+        "Label": "string"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 12,
+        "TargetNodeId": 13
+      },
+      {
+        "SourceNodeId": 12,
+        "TargetNodeId": 14
+      }
+    ]
+  },
+  {
+    "Id": 7,
+    "Name": "Another one",
+    "Nodes": [
+      {
+        "Id": 0,
+        "Label": "string"
+      },
+      {
+        "Id": 1,
+        "Label": "string"
+      },
+      {
+        "Id": 2,
+        "Label": "string"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 1
+      },
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 2
+      }
+    ]
+  },
+  {
+    "Id": 8,
+    "Name": "Another one",
+    "Nodes": [
+      {
+        "Id": 0,
+        "Label": "string"
+      },
+      {
+        "Id": 1,
+        "Label": "string"
+      },
+      {
+        "Id": 2,
+        "Label": "string"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 1
+      },
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 2
+      }
+    ]
+  },
+  {
+    "Id": 9,
+    "Name": "Another one",
+    "Nodes": [
+      {
+        "Id": 0,
+        "Label": "string"
+      },
+      {
+        "Id": 1,
+        "Label": "string"
+      },
+      {
+        "Id": 2,
+        "Label": "string"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 1
+      },
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 2
+      }
+    ]
+  },
+  {
+    "Id": 10,
+    "Name": "Another one",
+    "Nodes": [
+      {
+        "Id": 0,
+        "Label": "string"
+      },
+      {
+        "Id": 1,
+        "Label": "string"
+      },
+      {
+        "Id": 2,
+        "Label": "string"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 1
+      },
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 2
+      }
+    ]
+  },
+  {
+    "Id": 11,
+    "Name": "string",
+    "Nodes": [
+      {
+        "Id": 0,
+        "Label": "string"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 0
+      }
+    ]
+  },
+  {
+    "Id": 12,
+    "Name": "string",
+    "Nodes": [
+      {
+        "Id": 0,
+        "Label": "string"
+      }
+    ],
+    "Edges": [
+      {
+        "SourceNodeId": 0,
+        "TargetNodeId": 0
+      }
+    ]
+  }
+]

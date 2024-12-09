@@ -1,9 +1,13 @@
+using System.Linq.Expressions;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.WebSockets;
+using ServiceA.Models;
+using ServiceB;
 using ServiceB.Models;
+using ServiceB.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +22,7 @@ builder.Services.AddWebSockets(options =>
 {
     options.KeepAliveInterval = TimeSpan.FromSeconds(120);
 });
+
 
 
 var app = builder.Build();
@@ -61,57 +66,7 @@ app.Use(async (context, next) =>
     }
 });
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+
 
 app.Run();
-
-public class WebSocketHandler
-{
-    public async Task HandleWebSocketAsync(WebSocket webSocket)
-    {
-        var buffer = new byte[1024 * 4];
-        WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-        while (!result.CloseStatus.HasValue)
-        {
-            // var serverMsg = Encoding.UTF8.GetBytes($"Server: {DateTime.Now}");
-            // await webSocket.SendAsync(new ArraySegment<byte>(serverMsg, 0, serverMsg.Length), result.MessageType, result.EndOfMessage, CancellationToken.None);
-            // result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            var messageJson = Encoding.UTF8.GetString(buffer, 0, result.Count);
-            var message = JsonSerializer.Deserialize<WebSocketMessage>(messageJson);
-
-            switch (message.Action)
-            {
-                case "CreateGraph":
-                    {
-                        Console.WriteLine("Service B - Create Graph reached");
-                        break;
-                    }
-                case "GetGraph":
-                    {
-                        Console.WriteLine("Service B - Get Graph reached");
-                        break;
-                    }
-                case "UpdateGraph":
-                    {
-                        Console.WriteLine("Service B - Update Graph reached");
-                        break;
-                    }
-                case "DeleteGraph":
-                    {
-                        Console.WriteLine("Service B - Delete Graph reached");
-                        break;
-                    }
-            }
-
-            result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            Console.WriteLine($"Reached Result: {result}");
-
-
-        }
-        await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-    }
-}
 

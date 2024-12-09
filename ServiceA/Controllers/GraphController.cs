@@ -6,7 +6,12 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ServiceA.Handlers;
 using ServiceA.Models;
+using SharedLibrary.Models;
+
+
+
 
 namespace ServiceA.Controllers
 {
@@ -15,62 +20,78 @@ namespace ServiceA.Controllers
     public class GraphController : ControllerBase
     {
         // Implement Crud operations.
-        private readonly ClientWebSocket _webSocket;
+        private readonly WebSocketHandler _webSocketHandler;
 
-        public GraphController()
+        public GraphController(WebSocketHandler webSocketHandler)
         {
-            _webSocket = new ClientWebSocket();
+            _webSocketHandler = webSocketHandler;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateGraph([FromBody] Graph graph)
         {
-            await SendMessageToServiceBAsync("CreateGraph", graph);
-            return Ok();
+            var responseJson = await _webSocketHandler.SendMessageToServiceBAsync("CreateGraph", graph);
+            var responseObject = JsonSerializer.Deserialize<WebSocketMessage>(responseJson);
+
+            if (responseObject.Status == "Success")
+            {
+                var createdGraph = JsonSerializer.Deserialize<Graph>(responseObject.Data.ToString());
+                return CreatedAtAction(nameof(GetGraph), new { id = createdGraph.Id }, createdGraph); // HTTP 201 Created
+            }
+            else
+            {
+                return BadRequest(responseObject.Data); // HTTP 400 Bad Request
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> GetGraph(int id)
         {
-            await SendMessageToServiceBAsync("GetGraph", id);
-            return Ok();
+            var responseJson = await _webSocketHandler.SendMessageToServiceBAsync("GetGraph", id);
+            var responseObject = JsonSerializer.Deserialize<WebSocketMessage>(responseJson);
+            if (responseObject.Status == "Success")
+            {
+                //var graph = responseObject.Data as Graph;
+                //var graph = JsonSerializer.Deserialize<Graph>(responseObject.Data.ToString());
+                return Ok(responseObject.Data);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPut("id")]
         public async Task<IActionResult> UpdateGraph(int id, [FromBody] Graph graph)
         {
             graph.Id = id;
-            await SendMessageToServiceBAsync("UpdateGraph", graph);
-            return Ok();
+            var responseJson = await _webSocketHandler.SendMessageToServiceBAsync("UpdateGraph", graph);
+            var responseObject = JsonSerializer.Deserialize<WebSocketMessage>(responseJson);
+            if (responseObject.Status == "Success")
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(responseObject.Data); // HTTP 400 Bad Request
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGraph(int id)
         {
-            await SendMessageToServiceBAsync("DeleteGraph", id);
-            return Ok();
-        }
-
-
-        private async Task SendMessageToServiceBAsync(string action, object data)
-        {
-            if (_webSocket.State != WebSocketState.Open)
+            var responseJson = await _webSocketHandler.SendMessageToServiceBAsync("DeleteGraph", id);
+            var responseObject = JsonSerializer.Deserialize<WebSocketMessage>(responseJson);
+            if (responseObject.Status == "Success")
             {
-                await _webSocket.ConnectAsync(new Uri("ws://localhost:5297/ws"), CancellationToken.None);
+                return Ok();
             }
-
-            var message = new
+            else
             {
-                Action = action,
-                Data = data
-            };
-
-            var messageJson = JsonSerializer.Serialize(message);
-            var messageBytes = Encoding.UTF8.GetBytes(messageJson);
-            var messageSegment = new ArraySegment<byte>(messageBytes);
-
-            await _webSocket.SendAsync(messageSegment, WebSocketMessageType.Text, true, CancellationToken.None);
+                return BadRequest(responseObject.Data); // HTTP 400 Bad Request
+            }
         }
+
 
     }
 }
