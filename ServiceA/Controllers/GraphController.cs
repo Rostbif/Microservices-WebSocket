@@ -47,6 +47,8 @@ namespace ServiceA.Controllers
         [HttpGet]
         public async Task<IActionResult> GetGraph(int id)
         {
+            // for testing purposes... 
+            // throw new Exception("Test-checking error handling");
             var responseJson = await _webSocketHandler.SendMessageToServiceBAsync("GetGraph", id);
             var responseObject = JsonSerializer.Deserialize<WebSocketMessage>(responseJson);
             if (responseObject.Status == "Success")

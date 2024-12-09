@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.WebSockets;
 using ServiceA.Handlers;
+using ServiceA.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Registering an error handling middleware for global error handling
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseWebSockets();
