@@ -13,10 +13,15 @@ namespace ServiceA.Handlers
     {
         // Implement Crud operations.
         private readonly ClientWebSocket _webSocket;
+        //private readonly string _jwtToken;
 
-        public WebSocketHandler()
+
+        public WebSocketHandler(
+            //string jwtToken
+            )
         {
             _webSocket = new ClientWebSocket();
+            //_jwtToken = jwtToken;
         }
 
 
@@ -24,6 +29,7 @@ namespace ServiceA.Handlers
         {
             if (_webSocket.State != WebSocketState.Open)
             {
+                //_webSocket.Options.SetRequestHeader("Authorization", $"Bearer {_jwtToken}");
                 await _webSocket.ConnectAsync(new Uri("ws://localhost:5297/ws"), CancellationToken.None);
             }
 

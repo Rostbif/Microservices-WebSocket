@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.WebSockets;
 using ServiceA.Handlers;
 using ServiceA.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +19,25 @@ builder.Services.AddWebSockets(options =>
 });
 
 builder.Services.AddSingleton<WebSocketHandler>();
+
+// Configure JWT authentication - not for the first phase...
+// var jwtSettings = builder.Configuration.GetSection("Jwt");
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//     .AddJwtBearer(options =>
+//     {
+//         options.TokenValidationParameters = new TokenValidationParameters
+//         {
+//             ValidateIssuer = true,
+//             ValidateAudience = true,
+//             ValidateLifetime = true,
+//             ValidateIssuerSigningKey = true,
+//             ValidIssuer = jwtSettings["Issuer"],
+//             ValidAudience = jwtSettings["Audience"],
+//             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]))
+//         };
+//     });
+
+builder.Services.AddAuthorization();
 
 
 var app = builder.Build();
@@ -33,6 +56,8 @@ app.UseHttpsRedirection();
 app.UseWebSockets();
 
 app.UseRouting();
+//app.UseAuthentication();
+
 app.UseAuthorization();
 app.MapControllers();
 
