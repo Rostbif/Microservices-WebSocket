@@ -10,6 +10,7 @@ namespace ServiceB.Repositories
     public class GraphRepository
     {
         private readonly string _filePath = "graphs.json";
+        // using semaphore to ensure thread safe access to the json file
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         public async Task<List<Graph>> ReadGraphsAsync()
@@ -40,7 +41,8 @@ namespace ServiceB.Repositories
                 {
                     WriteIndented = true
                 };
-                var json = JsonSerializer.Serialize(graphs, options); await File.WriteAllTextAsync(_filePath, json);
+                var json = JsonSerializer.Serialize(graphs, options);
+                await File.WriteAllTextAsync(_filePath, json);
             }
             finally
             {
