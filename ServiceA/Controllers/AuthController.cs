@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ServiceA.Models;
 
+
+// TBD - Decided to not implement authentication in this phase, limited time.
 namespace ServiceA.Controllers
 {
     [ApiController]

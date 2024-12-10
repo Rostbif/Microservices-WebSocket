@@ -20,6 +20,7 @@ builder.Services.AddWebSockets(options =>
 
 builder.Services.AddSingleton<WebSocketHandler>();
 
+// TBD - Decided to not implement authentication in this phase, limited time.
 // Configure JWT authentication - not for the first phase...
 // var jwtSettings = builder.Configuration.GetSection("Jwt");
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -24,6 +24,7 @@ builder.Services.AddWebSockets(options =>
     options.KeepAliveInterval = TimeSpan.FromSeconds(120);
 });
 
+// TBD - Decided to not implement authentication in this phase, limited time.
 // Configure JWT authentication
 // var jwtSettings = builder.Configuration.GetSection("Jwt");
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

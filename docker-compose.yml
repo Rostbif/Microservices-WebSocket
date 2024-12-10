@@ -1,0 +1,19 @@
+services:
+  servicea:
+    build:
+      context: .
+      dockerfile: ServiceA/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  serviceb:
+    build:
+      context: .
+      dockerfile: ServiceB/Dockerfile
+    ports:
+      - "5001:5297"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5297
