@@ -5,7 +5,6 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using ServiceA.Models;
 using ServiceB.Models;
 using ServiceB.Repositories;
 using SharedLibrary.Models;

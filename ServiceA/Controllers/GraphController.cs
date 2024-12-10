@@ -53,8 +53,6 @@ namespace ServiceA.Controllers
             var responseObject = JsonSerializer.Deserialize<WebSocketMessage>(responseJson);
             if (responseObject.Status == "Success")
             {
-                //var graph = responseObject.Data as Graph;
-                //var graph = JsonSerializer.Deserialize<Graph>(responseObject.Data.ToString());
                 return Ok(responseObject.Data);
             }
             else

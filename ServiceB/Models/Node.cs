@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ServiceA.Models
+namespace ServiceB.Models
 {
     public class Node
     {

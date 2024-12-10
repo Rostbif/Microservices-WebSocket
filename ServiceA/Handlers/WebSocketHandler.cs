@@ -11,17 +11,17 @@ namespace ServiceA.Handlers
 {
     public class WebSocketHandler
     {
-        // Implement Crud operations.
         private readonly ClientWebSocket _webSocket;
-        //private readonly string _jwtToken;
+        private readonly string _webSocketUri;
 
 
-        public WebSocketHandler(
-            //string jwtToken
-            )
+        public WebSocketHandler()
         {
             _webSocket = new ClientWebSocket();
-            //_jwtToken = jwtToken;
+            // url to use in a docker environment: ws://serviceb:5297/ws
+            // url to use when running it locally: ws://localhost:5297/ws
+            _webSocketUri = Environment.GetEnvironmentVariable("WEBSOCKET_URI") ?? "ws://localhost:5297/ws";
+            Console.WriteLine($"Service A: The _webSockerUri: {_webSocketUri}");
         }
 
 
@@ -29,8 +29,8 @@ namespace ServiceA.Handlers
         {
             if (_webSocket.State != WebSocketState.Open)
             {
-                //_webSocket.Options.SetRequestHeader("Authorization", $"Bearer {_jwtToken}");
-                await _webSocket.ConnectAsync(new Uri("ws://serviceb:5297/ws"), CancellationToken.None);
+
+                await _webSocket.ConnectAsync(new Uri(_webSocketUri), CancellationToken.None);
             }
 
             var message = new WebSocketMessage
